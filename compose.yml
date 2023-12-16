@@ -1,0 +1,47 @@
+services:
+  front:
+    build:
+      context: ./server
+      dockerfile: ./docker/front/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8893:80
+    depends_on:
+      api:
+        condition: service_healthy
+  api:
+    build: 
+      context: ./server
+      dockerfile: ./docker/api/Dockerfile
+    command: python app.py
+    environment:
+      SERVER_PASSWORD: '893'
+    volumes:
+      - ./server/api/protocols:/app/protocols
+      - ./server/api/validators:/app/validators
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost:3000/api/healthcheck || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      postgres:
+        condition: service_healthy
+  
+  postgres:
+    image: postgres:15.1-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: culhwch
+      POSTGRES_PASSWORD: culhwch
+      POSTGRES_DB: culhwch
+    volumes:
+      - /culhwch/farm/db:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U culhwch -d culhwch
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

@@ -1,0 +1,144 @@
+.flags {
+    margin-top: 17px;
+    width: auto;
+}
+
+.flags__windows {
+    width: 100%;
+    display: flex;
+    margin-bottom: 17px;
+}
+
+.flags__info {
+    display: flex;
+    width: 949px;
+    height: 343px;
+    background: #C16767;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.25);
+}
+
+.flags__info__content {
+    margin-left: 38px;
+    margin-top: 20px;
+}
+
+.flags__info__content h1 {
+    margin-bottom: 25px;
+}
+
+.flags__info__content p {
+    margin-bottom: 5px;
+}
+
+.flags__submit {
+    margin-left: auto;
+    width: 632px;
+    height: 343px;
+    background: #C16767;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.25);
+}
+
+.flags__submit__header {
+    display: flex;
+    margin: 20px 30px;
+}
+
+.flags__submit__header button {
+    width: 148px;
+    height: 48px;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 32px;
+    margin-left: auto;
+    color: #C16767;
+    background: #fff;
+    border-radius: 15px;
+    border: 0;
+    cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.flags__submit__header .button__loading {
+    background: transparent;
+    border: 3px solid #fff;
+}
+
+.flags__submit__header button:hover {
+    color: #fff;
+    border: 3px solid #fff;
+    background: transparent;
+}
+
+.flags__submit input {
+    display: block;
+    width: 570px;
+    height: 226px;
+    border-radius: 15px;
+    border: none;
+    margin: 0 auto;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 24px;
+    padding-left: 8px;
+}
+
+.flags__table {
+    width: 1600px;
+    height: 500px;
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.25);
+}
+
+.flags__doughnut {
+    margin-left: auto;
+    margin-right: 110px;
+    width: 300px;
+    height: 300px;
+    margin-top: 20px;
+}
+
+.flags__area {
+    margin-left: auto;
+    margin-right: 30px;
+    width: 505px;
+    height: 300px;
+    margin-top: 20px;
+}
+
+.flags__info__metrics {
+    height: 185px;
+}
+
+.flags__control {
+    display: flex;
+    height: 47px;
+}
+
+.switch__graph {
+    background: #fff;
+    border: none;
+    border-radius: 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    height: 47px;
+    width: 47px;
+}
+
+.switch__graph:hover {
+    background: none;
+    transition: all ease 0.3s;
+}
+
+.switch__graph svg {
+    width: 40px;
+    height: 40px;
+    margin-top: 4px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.switch__graph:hover svg path {
+    stroke: #fff;
+    transition: all ease 0.3s;
+}

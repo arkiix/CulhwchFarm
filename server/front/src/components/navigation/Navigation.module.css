@@ -1,0 +1,62 @@
+.header {
+    background: rgba(14, 14, 14, 0.75);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    margin-right: 60px;
+}
+
+.nav__menu {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav__pages {
+    display: flex;
+    list-style-type: none;
+}
+
+.nav__pages, .nav__pages li {
+    padding: 0;
+    margin: 0;
+}
+
+.nav__page, .nav__page_active {
+    display: table;
+    text-decoration: none;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    margin-left: 95px;
+}
+
+.nav__page {
+    color: #fff;
+}
+
+.nav__page_active {
+    color:#C16767;
+}
+
+.logout__button {
+    margin-left: auto;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    color: #fff;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.nav__page:hover, .logout__button:hover {
+    color:#C16767;
+}

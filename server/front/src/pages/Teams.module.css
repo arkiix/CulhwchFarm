@@ -1,0 +1,136 @@
+.teams {
+    margin-top: 17px;
+    width: auto;
+}
+
+.teams__container {
+    display: flex;
+}
+
+.teams__table {
+    width: auto;
+    height: 870px;
+    margin-right: 23px;
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.25);
+}
+
+.teams__table button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.teams__table tbody td button {
+    margin-left: auto;
+}
+
+.delete__team__button_all {
+    margin-right: 21px;
+    margin-top: 3px;
+}
+
+.delete__team__button_all svg path {
+    fill: #C16767;
+}
+
+.delete__team__button {
+    margin-right: 20px;
+    margin-top: 3px;
+}
+
+.teams__table tbody tr td:last-child {
+    text-align: right;
+}
+
+.teams__table thead tr th:last-child {
+    text-align: right;
+}
+
+.team__add {
+    width: 639px;
+    height: 423px;
+    background: #C16767;
+    border-radius: 15px;
+    margin-bottom: 24px;
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.25);
+}
+
+.team__generate {
+    width: 639px;
+    height: 423px;
+    background: #C16767;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px 3px rgba(0, 0, 0, 0.25);
+}
+
+.team__generate p {
+    margin-left: 30px;
+    margin-top: 60px;
+}
+
+.team__add__header {
+    display: flex;
+    padding-top: 20px;
+    margin: 0 30px;
+    margin-bottom: 32px;
+}
+
+.team__add__header button {
+    width: 148px;
+    height: 48px;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 32px;
+    margin-left: auto;
+    color: #C16767;
+    background: #fff;
+    border-radius: 15px;
+    border: 0;
+    cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.team__add__header .button__loading {
+    background: transparent;
+    border: 3px solid #fff;
+}
+
+.team__add__header button:hover {
+    color: #fff;
+    border: 3px solid #fff;
+    background: transparent;
+}
+
+.team__add__row {
+    display: flex;
+}
+
+.team__add__input, .team__add__input_r {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 30px;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+.team__windows h2 {
+    margin-bottom: 6px;
+}
+
+.team__add__input input, .team__add__input_r input {
+    display: block;
+    width: 363px;
+    height: 47px;
+    border-radius: 15px;
+    border: none;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 24px;
+    padding-left: 8px;
+}
+
+.team__add__input_r input {
+    width: 184px;
+}
