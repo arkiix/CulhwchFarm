@@ -5,7 +5,6 @@ from itertools import chain
 
 from aiohttp import web
 
-import models
 from database import database
 
 
@@ -74,7 +73,7 @@ def directory_hash(*directory_names: str) -> str:
     return hasher.hexdigest()
 
 
-async def get_settings(request: models.WebRequest):
+async def get_settings(request: web.Request):
     farm_settings = request.app['settings']
 
     script_hash = directory_hash('protocols', 'validators')
@@ -91,7 +90,7 @@ async def get_settings(request: models.WebRequest):
     )
 
 
-async def get_protocols(request: models.WebRequest):
+async def get_protocols(request: web.Request):
     pool = request.app['pool']
 
     sq = '''select protocol_id, protocol_name
@@ -108,7 +107,7 @@ async def get_protocols(request: models.WebRequest):
     )
 
 
-async def get_validators(request: models.WebRequest):
+async def get_validators(request: web.Request):
     pool = request.app['pool']
 
     sq = '''select 
@@ -135,7 +134,7 @@ async def get_validators(request: models.WebRequest):
     )
 
 
-async def update_settings(request: models.WebRequest):
+async def update_settings(request: web.Request):
     user_data = await request.json()
 
     pool = request.app['pool']
@@ -185,7 +184,7 @@ async def update_settings(request: models.WebRequest):
     )
 
 
-async def get_protocols_params(request: models.WebRequest):
+async def get_protocols_params(request: web.Request):
     protocol_id = int(request.rel_url.query.get('protocol_id'))
 
     pool = request.app['pool']

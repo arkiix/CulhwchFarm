@@ -1,10 +1,8 @@
 import asyncpg
 from aiohttp import web
 
-import models
 
-
-async def get_sploits(request: models.WebRequest):
+async def get_sploits(request: web.Request):
     pool = request.app['pool']
 
     sq = '''select sploit_id, sploit_name
@@ -21,7 +19,7 @@ async def get_sploits(request: models.WebRequest):
     )
 
 
-async def init_sploit(request: models.WebRequest):
+async def init_sploit(request: web.Request):
     sploit_name = (await request.json()).get('sploit_name')
 
     pool = request.app.get('pool')

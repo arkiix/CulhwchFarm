@@ -11,7 +11,7 @@ import models
 DISPLAY_COLUMNS = ('flag', 'sploit_name', 'team_name', 'create_dt', 'status_name', 'response')
 
 
-async def get_flags(request: models.WebRequest):
+async def get_flags(request: web.Request):
     page_num = int(request.rel_url.query.get('page_num'))
     sploit_id = request.rel_url.query.get('sploit_id')
 
@@ -33,7 +33,7 @@ async def get_flags(request: models.WebRequest):
     )
 
 
-async def manual_submit_flag(request: models.WebRequest):  # Нужно встроить валидаторы
+async def manual_submit_flag(request: web.Request):  # Нужно встроить валидаторы
     user_data = await request.json()
     farm_settings = request.app.get('settings')
 
@@ -73,7 +73,7 @@ async def manual_submit_flag(request: models.WebRequest):  # Нужно встр
     )
 
 
-async def submit_flags(request: models.WebRequest):
+async def submit_flags(request: web.Request):
     flags = await request.json()
 
     if not flags:
@@ -104,7 +104,7 @@ async def submit_flags(request: models.WebRequest):
     )
 
 
-async def get_info(request: models.WebRequest):
+async def get_info(request: web.Request):
     count_rounds = int(request.rel_url.query.get('count_rounds'))
 
     sploit_id = request.rel_url.query.get('sploit_id')

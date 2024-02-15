@@ -10,7 +10,7 @@ def check_ip(ip_address: str) -> bool:
     return not (len(ip_l) != 4 or not all(map(lambda x: x.isdigit() and 0 <= int(x) < 256, ip_l)))
 
 
-async def get_teams(request: models.WebRequest):
+async def get_teams(request: web.Request):
     sq = '''select team_id, team_name, team_ip
             from t_teams
             where team_id >= 0;'''
@@ -28,7 +28,7 @@ async def get_teams(request: models.WebRequest):
     )
 
 
-async def delete_teams(request: models.WebRequest):
+async def delete_teams(request: web.Request):
     team_id = request.rel_url.query.get('team_id')
     team_id = int(team_id) if team_id else None
 
@@ -49,7 +49,7 @@ async def delete_teams(request: models.WebRequest):
     )
 
 
-async def add_team(request: models.WebRequest):
+async def add_team(request: web.Request):
     user_data = await request.json()
 
     teams = list(map(
@@ -82,7 +82,7 @@ async def add_team(request: models.WebRequest):
     )
 
 
-async def generate_teams(request: models.WebRequest):
+async def generate_teams(request: web.Request):
     user_data = await request.json()
 
     name_template = user_data.get('name_template').strip()
