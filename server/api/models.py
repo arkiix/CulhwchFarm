@@ -1,13 +1,6 @@
 from enum import Enum
 from dataclasses import dataclass
 
-from aiohttp import web
-
-
-@dataclass
-class WebRequest(web.Request):
-    is_auth: bool = False
-
 
 class FlagStatus(Enum):
     QUEUED = 0

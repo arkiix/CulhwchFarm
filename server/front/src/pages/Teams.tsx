@@ -17,7 +17,7 @@ function Teams() {
         return {
             name_template: '',
             ip_template: '',
-            start_num: 0,
+            start_num: '0',
             count_teams: 0
         }
     })
@@ -120,7 +120,7 @@ function Teams() {
                                 </div>
                                 <div className={styles.team__add__input_r}>
                                     <h2>Start with</h2>
-                                    <input type="number" className={styles.team__ip} placeholder="0" name="start_num" onChange={changeGenerateTeamsData} required/>
+                                    <input type="text" className={styles.team__ip} placeholder="0" name="start_num" onChange={changeGenerateTeamsData} required/>
                                 </div>
                             </div>
                             <div className={styles.team__add__row}>

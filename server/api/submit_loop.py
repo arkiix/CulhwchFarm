@@ -11,6 +11,7 @@ import config
 
 
 logger = None
+conn_db = None
 
 
 def get_settings() -> Settings:
@@ -106,29 +107,29 @@ def submit_flags(flags, protocol_name, protocol_params) -> list[FlagSubmit]:
         module = importlib.import_module('protocols.' + protocol_name.split('.')[0])
         return list(module.submit_flags(flags, protocol_params))
 
-    except Exception:
-        logger.exception('Error when working with sploit')
+    except Exception as e:
+        logger.exception(f'Error when working with sploit: {e}')
 
 
-conn_db = None
+def connect_database():
+    return psycopg2.connect(
+        dbname=config.DB_DATABASE,
+        user=config.DB_USER,
+        password=config.DB_PASSWORD,
+        host=config.DB_HOST
+    )
 
 
 def run_loop():
+    global conn_db
+    conn_db = connect_database()
+
     logger = logging.getLogger(__name__)
     logger.info('Submit loop started')
 
     while True:
         try:
-            global conn_db
             submit_start_time = time.time()
-
-            if not conn_db:
-                conn_db = psycopg2.connect(
-                    dbname=config.DB_DATABASE,
-                    user=config.DB_USER,
-                    password=config.DB_PASSWORD,
-                    host=config.DB_HOST
-                )
 
             settings = get_settings()
 
@@ -202,6 +203,10 @@ def run_loop():
             conn_db.rollback()
             time.sleep(3)
 
+        except psycopg2.InterfaceError:
+            logger.info('Reconnecting to the database')
+            conn_db = connect_database()
+
         except Exception as e:
-            logger.exception('Error in submit loop')
+            logger.exception(f'Error in submit loop: {e}')
             time.sleep(3)

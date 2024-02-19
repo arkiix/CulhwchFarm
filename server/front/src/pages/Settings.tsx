@@ -17,10 +17,16 @@ function Settings() {
         settingsStore.getProtocols();
         settingsStore.getValidators();
     }, []);
-    
-    const changeSettingsData = (settingName: string, value: any) => {
+
+    const changeSettingsData = (event: React.ChangeEvent<HTMLInputElement>) => {
         let curSettings = settingsStore.settings;
-        curSettings[settingName] = value;
+
+        let new_value = event.target.value;
+        if (/^[0-9]+$/.test(new_value) && event.target.name !== "regex_flag_format")
+            curSettings[event.target.name] = Number(new_value)
+        else
+            curSettings[event.target.name] = new_value
+
         settingsStore.setSettings(curSettings);
     };
     
@@ -68,7 +74,7 @@ function Settings() {
                             <h1>Culhwch Settings</h1>
                             <div className={styles.settings__input}>
                                 <h2>Regex Flag Format</h2>
-                                <input type="text" name="regex_flag_format" placeholder="[A-Z0-9]{31}=" onChange={(event) => {changeSettingsData(event.target.name, event.target.value)}} value={settingsStore.settings.regex_flag_format}/>
+                                <input type="text" name="regex_flag_format" placeholder="[A-Z0-9]{31}=" onChange={changeSettingsData} value={settingsStore.settings.regex_flag_format} required/>
                             </div>
                             <div className={styles.settings__input}>
                                 <h2>System protocol</h2>
@@ -84,19 +90,19 @@ function Settings() {
                             <div className={styles.flex__input}>
                                 <div className={styles.settings__input}>
                                     <h2>Submit Limit</h2>
-                                    <input type="number" name="submit_flag_limit" placeholder="50" onChange={(event) => {changeSettingsData(event.target.name, Number(event.target.value))}} value={settingsStore.settings.submit_flag_limit}/>
+                                    <input type="number" name="submit_flag_limit" placeholder="50" onChange={changeSettingsData} value={settingsStore.settings.submit_flag_limit} required/>
                                 </div>
                                 <div className={styles.settings__input}>
                                     <h2>Submit Period</h2>
-                                    <input type="number" name="submit_period" placeholder="5" onChange={(event) => {changeSettingsData(event.target.name, Number(event.target.value))}} value={settingsStore.settings.submit_period}/>
+                                    <input type="number" name="submit_period" placeholder="5" onChange={changeSettingsData} value={settingsStore.settings.submit_period} required/>
                                 </div>
                                 <div className={styles.settings__input}>
                                     <h2>Flag Lifetime</h2>
-                                    <input type="number" name="flag_lifetime" placeholder="300" onChange={(event) => {changeSettingsData(event.target.name, Number(event.target.value))}} value={settingsStore.settings.flag_lifetime}/>
+                                    <input type="number" name="flag_lifetime" placeholder="300" onChange={changeSettingsData} value={settingsStore.settings.flag_lifetime} required/>
                                 </div>
                                 <div className={styles.settings__input}>
                                     <h2>Round Length</h2>
-                                    <input type="number" name="round_length" placeholder="120" onChange={(event) => {changeSettingsData(event.target.name, Number(event.target.value))}} value={settingsStore.settings.round_length}/>
+                                    <input type="number" name="round_length" placeholder="120" onChange={changeSettingsData} value={settingsStore.settings.round_length} required/>
                                 </div>
                             </div>
                             {settingsStore.protocolParams.length > 0 && <h1>Protocol Settings</h1>}

@@ -25,7 +25,7 @@ export interface IGenerateTeams {
 export interface IGenerateTeamsData {
     name_template: string,
     ip_template: string,
-    start_num: number,
+    start_num: string,
     count_teams: number
 }
 

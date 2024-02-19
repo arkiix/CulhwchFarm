@@ -1,3 +1,5 @@
+import ipaddress
+
 import asyncpg
 from aiohttp import web
 
@@ -5,12 +7,7 @@ import exceptions
 import models
 
 
-def check_ip(ip_address: str) -> bool:
-    ip_l = ip_address.split('.')
-    return not (len(ip_l) != 4 or not all(map(lambda x: x.isdigit() and 0 <= int(x) < 256, ip_l)))
-
-
-async def get_teams(request: models.WebRequest):
+async def get_teams(request: web.Request):
     sq = '''select team_id, team_name, team_ip
             from t_teams
             where team_id >= 0;'''
@@ -28,7 +25,7 @@ async def get_teams(request: models.WebRequest):
     )
 
 
-async def delete_teams(request: models.WebRequest):
+async def delete_teams(request: web.Request):
     team_id = request.rel_url.query.get('team_id')
     team_id = int(team_id) if team_id else None
 
@@ -49,7 +46,7 @@ async def delete_teams(request: models.WebRequest):
     )
 
 
-async def add_team(request: models.WebRequest):
+async def add_team(request: web.Request):
     user_data = await request.json()
 
     teams = list(map(
@@ -57,8 +54,11 @@ async def add_team(request: models.WebRequest):
         user_data.get('teams')
     ))
 
-    if not all(map(lambda t: check_ip(t.team_ip), teams)):
-        raise exceptions.IpAddressInvalid
+    for team in teams:
+        try:
+            ipaddress.ip_address(team.team_ip)
+        except ValueError:
+            raise exceptions.IpAddressInvalid
 
     pool = request.app['pool']
     created_teams = []
@@ -82,24 +82,27 @@ async def add_team(request: models.WebRequest):
     )
 
 
-async def generate_teams(request: models.WebRequest):
+async def generate_teams(request: web.Request):
     user_data = await request.json()
 
     name_template = user_data.get('name_template').strip()
     ip_template = user_data.get('ip_template').strip()
-    start_num = int(user_data.get('start_num'))
+    start_num = user_data.get('start_num')
     count_teams = int(user_data.get('count_teams'))
 
-    if count_teams > 256:
-        raise exceptions.TooManyTeams
+    try:
+        ip_version = ipaddress.ip_address(ip_template.replace('$', '0')).version
+    except ValueError:
+        raise exceptions.IpAddressInvalid
 
-    if start_num < 0 or start_num + count_teams > 256 or not check_ip(ip_template.replace('$', '0')):
+    start_num = int(start_num, 10 if ip_version == 4 else 16)
+    if start_num < 0 or start_num + count_teams > (256 if ip_version == 4 else 0xffff):
         raise exceptions.IpAddressInvalid
 
     team_generator = (
         (
             name_template.replace('$', str(team_num)),
-            ip_template.replace('$', str(team_num))
+            ip_template.replace('$', str(team_num) if ip_version == 4 else hex(team_num)[2:])
         )
         for team_num in range(start_num, start_num + count_teams)
     )
