@@ -134,11 +134,11 @@ def run_loop():
             settings = get_settings()
 
             sq = '''insert into t_flag_submits (flag_id, status_id, response)
-                                select f.flag_id, 1, 'Flag expired'
-                                from t_flags f
-                                left join t_flag_submits fs
-                                    on f.flag_id = fs.flag_id
-                                where create_dt < now() - interval '%s seconds' and fs.flag_id is null'''
+                    select f.flag_id, 1, 'Flag expired'
+                    from t_flags f
+                    left join t_flag_submits fs
+                        on f.flag_id = fs.flag_id
+                    where create_dt < now() - interval '%s seconds' and fs.flag_id is null'''
 
             cur = conn_db.cursor()
             cur.execute(sq, (settings.flag_lifetime,))
@@ -150,11 +150,12 @@ def run_loop():
                 time.sleep(3)
                 continue
 
-            protocol_name = get_protocol_name(settings)
-            protocol_params = get_protocols_params(settings)
             queued_flags = get_queued_flags()
 
             if queued_flags:
+                protocol_name = get_protocol_name(settings)
+                protocol_params = get_protocols_params(settings)
+
                 grouped_flags = defaultdict(list)
                 for item in queued_flags:
                     grouped_flags[item.sploit_id, item.team_id].append(item)
@@ -193,10 +194,10 @@ def run_loop():
                     conn_db.commit()
                     cur.close()
 
-                    submit_spent = time.time() - submit_start_time
+            submit_spent = time.time() - submit_start_time
 
-                    if settings.submit_period > submit_spent:
-                        time.sleep(settings.submit_period - submit_spent)
+            if settings.submit_period > submit_spent:
+                time.sleep(settings.submit_period - submit_spent)
 
         except psycopg2.errors.InFailedSqlTransaction:
             logger.exception('FailedSqlTransaction. Rollback...')
