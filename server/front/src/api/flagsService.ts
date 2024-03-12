@@ -1,6 +1,7 @@
 import api from '../http';
 import { AxiosResponse } from 'axios';
 import { IGetFlags, IGetSploits, ISubmitFlag, IGetFlagsInfo } from '../models/flags';
+import { IDefaultAnswer } from '../models/general';
 
 export default class FlagService {
     static async get_flags(pageNum: number, sploitId: number | null): Promise<AxiosResponse<IGetFlags>> {
@@ -39,6 +40,18 @@ export default class FlagService {
             {
                 'flag': flag
             }
+        );
+    };
+
+    static async delete_flags(): Promise<AxiosResponse<IDefaultAnswer>> {
+        return await api.delete<IDefaultAnswer>(
+            'flags'
+        );
+    };
+
+    static async delete_sploits(): Promise<AxiosResponse<IDefaultAnswer>> {
+        return await api.delete<IDefaultAnswer>(
+            'sploits'
         );
     };
 };

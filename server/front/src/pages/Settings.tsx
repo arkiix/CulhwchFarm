@@ -10,8 +10,8 @@ configure({
 })
 
 function Settings() {
-    const {settingsStore} = useContext(StoreContext);
-    
+    const {settingsStore, flagsStore} = useContext(StoreContext);
+
     useEffect(() => {
         settingsStore.getSettings();
         settingsStore.getProtocols();
@@ -57,9 +57,15 @@ function Settings() {
         settingsStore.setValidatorsSettings(curSettings);
     };
 
+    function clearFlags(event: React.FormEvent) {
+        event.preventDefault();
+
+        flagsStore.clearFlags();
+    };
+
     function updateSettings(event: React.FormEvent) {
         event.preventDefault();
-        
+
         settingsStore.updateSettings();
     };
     
@@ -133,9 +139,13 @@ function Settings() {
                                     </div>
                                 })
                             }
+                            <h1>Other</h1>
+                            <button className={flagsStore.deleteFlagsLoading ? styles.button__loading : ''} onClick={clearFlags} disabled={flagsStore.deleteFlagsLoading}>
+                                {flagsStore.deleteFlagsLoading ? <div className='button__loading__spinner'></div> : 'Clear flags and exploits'}
+                            </button>
                         </div>
                         <button type="submit" className={settingsStore.updateSettingsLoading ? styles.button__loading : ''} disabled={settingsStore.updateSettingsLoading}>
-                                    {settingsStore.updateSettingsLoading ? <div className='button__loading__spinner'></div> : 'Update'}
+                            {settingsStore.updateSettingsLoading ? <div className='button__loading__spinner'></div> : 'Update'}
                         </button>
                     </form>
                 </div>

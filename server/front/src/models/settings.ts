@@ -59,7 +59,3 @@ export interface IGetValidators {
     status: string;
     validators: IValidator[];
 }
-
-export interface IUpdateSettings {
-    status: string;
-}

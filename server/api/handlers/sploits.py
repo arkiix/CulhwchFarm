@@ -45,3 +45,14 @@ async def init_sploit(request: web.Request):
             'sploit_id': sploit_id
         }
     )
+
+
+async def delete_sploits(request: web.Request):
+    async with request.app['pool'].acquire() as conn:
+        await conn.execute('delete from t_sploits where sploit_id > 0;')
+
+    return web.json_response(
+        {
+            'status': 'ok'
+        }
+    )

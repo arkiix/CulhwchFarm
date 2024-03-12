@@ -1,6 +1,7 @@
 import api from '../http';
 import { AxiosResponse } from 'axios';
-import { IGetProtocolParams, IGetProtocols, IGetValidators, IGetSettings, IParamValues, ISettings, IUpdateSettings, IValidator } from '../models/settings';
+import { IGetProtocolParams, IGetProtocols, IGetValidators, IGetSettings, IParamValues, ISettings, IValidator } from '../models/settings';
+import { IDefaultAnswer } from '../models/general';
 
 export default class SettingsService {
     static async get_settings(): Promise<AxiosResponse<IGetSettings>> {
@@ -32,8 +33,8 @@ export default class SettingsService {
         );
     };
 
-    static async update_settings(settings: ISettings, paramValues: IParamValues, validatorSettings: IValidator[]): Promise<AxiosResponse<IUpdateSettings>> {
-        return await api.put<IUpdateSettings>(
+    static async update_settings(settings: ISettings, paramValues: IParamValues, validatorSettings: IValidator[]): Promise<AxiosResponse<IDefaultAnswer>> {
+        return await api.put<IDefaultAnswer>(
             'settings',
             {
                 'settings': settings,
