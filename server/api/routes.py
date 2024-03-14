@@ -1,6 +1,6 @@
 from aiohttp import web
 
-from handlers import authorization, flags, teams, settings, sploits
+from handlers import authorization, flags, teams, settings, sploits, client
 
 
 async def healthcheck(_):
@@ -35,4 +35,6 @@ ROUTES = (
     web.route('get', '/api/sploits', sploits.get_sploits),
     web.route('post', '/api/sploits', sploits.init_sploit),
     web.route('delete', '/api/sploits', sploits.delete_sploits),
+    
+    web.route('get', '/api/client', client.get_client),
 )

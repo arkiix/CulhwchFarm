@@ -45,6 +45,27 @@
     color:#C16767;
 }
 
+.client__button {
+    margin-left: 95px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    color: #fff;
+    background: none;
+    border: 3px solid #fff;
+    border-radius: 15px;
+    transition: all .2s ease;
+    cursor: pointer;
+    height: 45px;
+    width: 222px;
+}
+
+.client__button:hover {
+    color: #C16767;
+    border: 3px solid #C16767;
+}
+
 .logout__button {
     margin-left: auto;
     font-family: 'Montserrat';
@@ -58,5 +79,5 @@
 }
 
 .nav__page:hover, .logout__button:hover {
-    color:#C16767;
+    color: #C16767;
 }
