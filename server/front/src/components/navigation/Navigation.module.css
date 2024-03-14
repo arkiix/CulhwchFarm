@@ -58,7 +58,47 @@
     transition: all .2s ease;
     cursor: pointer;
     height: 45px;
-    width: 222px;
+    width: 131px;
+    display: flex;
+}
+
+.client__button svg {
+    width: 30px;
+    height: 30px;
+    margin-top: 6px;
+    margin-left: 9px;
+    margin-right: 2px;
+}
+
+.client__button svg line {
+    stroke: #fff;
+    transition: all .2s ease;
+}
+
+.client__button svg path {
+    stroke: #fff;
+    transition: all .2s ease;
+}
+
+.client__button svg polyline {
+    stroke: #fff;
+    transition: all .2s ease;
+}
+
+.client__button:hover svg line {
+    stroke: #C16767;
+}
+
+.client__button:hover svg path {
+    stroke: #C16767;
+}
+
+.client__button:hover svg polyline {
+    stroke: #C16767;
+}
+
+.client__button div {
+    margin-top: 6px;
 }
 
 .client__button:hover {
