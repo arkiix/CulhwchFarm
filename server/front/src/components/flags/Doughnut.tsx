@@ -6,38 +6,47 @@ import { StoreContext } from '../..';
 
 
 function FlagsDoughnut() {
-  const {flagsStore} = useContext(StoreContext);
-  
-  ChartJS.register(ArcElement, Tooltip, Legend);
+    const {flagsStore} = useContext(StoreContext);
 
-  const options = {
-    maintainAspectRatio: false,
-    plugins:{
-      legend: {
-        display: false
-      }
-    }
-  };
-  
-  const data = {
-    labels: ['QUEUED', 'ACCEPTED', 'SKIPPED', 'REJECTED'],
-    datasets: [
-      {
-        label: 'Count',
-        data: [flagsStore.flagsInfo.queued, flagsStore.flagsInfo.accepted, flagsStore.flagsInfo.skipped, flagsStore.flagsInfo.rejected],
-        backgroundColor: [
-          '#6765EE',
-          '#1E976A',
-          '#EE6586',
-          '#B51522'
-        ],
-        borderWidth: 0,
-      },
-    ],
-  };
+    ChartJS.register(ArcElement, Tooltip, Legend);
 
-  
-  return <Doughnut data={data} options={options} />;
+    let donData = [flagsStore.flagsInfo.queued, flagsStore.flagsInfo.accepted, flagsStore.flagsInfo.skipped, flagsStore.flagsInfo.rejected];
+    let labels = ['QUEUED', 'ACCEPTED', 'SKIPPED', 'REJECTED'];
+    let backgroundColor = ['#6765EE', '#1E976A', '#EE6586', '#B51522'];
+    let showTooltip = true;
+
+    if (donData.every((elem) => elem === 0)) {
+        donData = [1];
+        labels = ['GUG'];
+        backgroundColor = ['#decece'];
+        showTooltip = false;
+    };
+
+    const options = {
+        maintainAspectRatio: false,
+        plugins:{
+            legend: {
+                display: false
+            },
+            tooltip: {
+                enabled: showTooltip
+            }
+        }
+    };
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Count',
+                data: donData,
+                backgroundColor: backgroundColor,
+                borderWidth: 0,
+            }
+        ]
+    };
+
+    return <Doughnut data={data} options={options} />;
 }
 
 export default observer(FlagsDoughnut);

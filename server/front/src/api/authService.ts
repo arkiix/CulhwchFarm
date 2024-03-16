@@ -1,10 +1,10 @@
 import api from '../http';
 import { AxiosResponse } from 'axios';
-import { IAuthResponse } from '../models/auth'
+import { IDefaultAnswer } from '../models/general';
 
 export default class AuthService {
-    static async login(password: string): Promise<AxiosResponse<IAuthResponse>> {
-        return await api.post<IAuthResponse>(
+    static async login(password: string): Promise<AxiosResponse<IDefaultAnswer>> {
+        return await api.post<IDefaultAnswer>(
             'auth/login', 
             {
                 'password': password

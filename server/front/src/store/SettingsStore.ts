@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import SettingsService from '../api/settingsService';
+import FlagsService from '../api/flagsService';
 import { IParamValues, IProtocol, IValidator, IProtocolParam, ISettings } from '../models/settings';
 
 export default class AuthStore {

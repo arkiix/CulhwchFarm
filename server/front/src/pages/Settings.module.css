@@ -1,5 +1,4 @@
 .settings__body {
-    position: block;
     width: 877px;
     height: 855px;
     background: #C16767;
@@ -13,6 +12,7 @@
 .global__settings {
     margin: 0 42px;
     height: 770px;
+    padding-bottom: 25px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -93,13 +93,19 @@
 	transition: all 0.2s ease;
     display: block;
     margin: 0 auto;
-    margin-top: 15px;
+    margin-top: 7px;
 }
 
 .settings__body button:hover {
     background: transparent;
     border: 3px solid #fff;
     color: #fff;
+}
+
+.global__settings button {
+    width: 96%;
+    margin: 0;
+    margin-top: 25px;
 }
 
 input::file-selector-button {

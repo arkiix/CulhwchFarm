@@ -126,3 +126,14 @@ async def get_info(request: web.Request):
             'info': result_info
         }
     )
+
+
+async def delete_flags(request: web.Request):
+    async with request.app['pool'].acquire() as conn:
+        await conn.execute('delete from t_flags;')
+
+    return web.json_response(
+        {
+            'status': 'ok'
+        }
+    )

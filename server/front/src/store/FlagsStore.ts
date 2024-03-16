@@ -9,6 +9,7 @@ export default class AuthStore {
     flagsPageNum = 1;
     sploitId = null as number | null;
     submitFlagLoading = false;
+    deleteFlagsLoading = false;
     graph = 1;
     countRounds = 6;
 
@@ -41,6 +42,10 @@ export default class AuthStore {
 
     setSubmitFlagLoading(value: boolean) {
         this.submitFlagLoading = value;
+    }
+
+    setDeleteFlagsLoading(value: boolean) {
+        this.deleteFlagsLoading = value;
     }
 
     async getSploits() {
@@ -96,6 +101,26 @@ export default class AuthStore {
             throw error.response;
         } finally {
             this.setSubmitFlagLoading(false);
+        }
+    }
+
+    async clearFlags() {
+        this.setDeleteFlagsLoading(true);
+        try {
+            let response = await FlagsService.delete_flags();
+            if (response.data.status === 'ok') {
+                this.getFlags();
+                this.getFlagsInfo();
+            };
+
+            response = await FlagsService.delete_sploits();
+            if (response.data.status === 'ok') {
+                this.getSploits();
+            };
+        } catch (error: any) {
+            throw error.response;
+        } finally {
+            this.setDeleteFlagsLoading(false);
         }
     }
 }
