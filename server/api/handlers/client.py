@@ -4,19 +4,17 @@ from config import SERVER_PASSWORD
 
 
 async def get_client(request: web.Request):
-    farm_url = request.rel_url.query.get('url')
-    round_length = request.app['settings'].round_length
-
-    print(f'{round_length=}')
-    print(f'{SERVER_PASSWORD=}')
-    print(f'{farm_url=}')
+    params = {
+        'server_url': request.rel_url.query.get('url'),
+        'server_password': SERVER_PASSWORD,
+        'round_length': str(request.app['settings'].round_length)
+    }
 
     with open('client_template.py', 'rb') as f:
         client_content = f.read()
 
-    client_content = client_content.replace(b'{{server_url}}', farm_url.encode())
-    client_content = client_content.replace(b'{{server_password}}', SERVER_PASSWORD.encode())
-    client_content = client_content.replace(b'{{round_length}}', str(round_length).encode())
+    for param_name, param_value in params.items():
+        client_content = client_content.replace(('{{' + param_name + '}}').encode(), param_value.encode())
 
     return web.Response(
         body=client_content,
