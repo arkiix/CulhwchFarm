@@ -49,7 +49,7 @@ async def validate_flags(flags: Iterator[Flag], app, config: dict) -> Iterator[F
 
         try:
             flag_obj.flag = decode(key, flag).get('flag')
-            yield flag
+            yield flag_obj
 
         except jwt.exceptions.InvalidSignatureError:
             continue
