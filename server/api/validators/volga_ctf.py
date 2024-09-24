@@ -53,3 +53,7 @@ async def validate_flags(flags: Iterator[Flag], app, config: dict) -> Iterator[F
 
         except jwt.exceptions.InvalidSignatureError:
             continue
+
+        except Exception as e:
+            print(f'[Warning] Validate flag exception: {e}')
+            continue
