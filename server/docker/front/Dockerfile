@@ -1,7 +1,8 @@
 FROM node:21-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+RUN corepack enable && \
+	corepack prepare pnpm@8.15.9 --activate
 
 COPY front /app
 WORKDIR /app
